@@ -44,7 +44,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                             <div class="form-group">
                                 <label for="eventCategory" class="control-label">Category</label>
-                                <select ng-model='eventForm.category' ng-options="category.id as category.name group by category.group for category in event.categories" class="form-control"  data-width="100%" name="eventCategory" name="eventCategory">
+                                <select ng-model='event.selectedOption' ng-options="category.name group by category.group for category in event.categories track by category.id" class="form-control"  data-width="100%" name="eventCategory">
                                 </select>
                                 <p class="help-block">Select the event category</p>
                             </div>
@@ -54,7 +54,27 @@
                                 <label for="eventEmailInfo" class=" control-label">Email</label>
                                 <input type="email" ng-model='eventForm.email' class="form-control" name="eventEmailInfo" placeholder="Email Info">
                                 <p class="help-block">The contact email</p>
-
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="eventSpecial" class="control-label">Special Event</label>
+                                <br>
+                                <label><input type="radio" ng-model='event.eventForm.specialEvent' value='true' >Yes</label>
+                                <label><input type="radio"  ng-model='event.eventForm.specialEvent' value='false' >No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-if="event.eventForm.specialEvent === 'true'">
+                                <label for="eventSpecialTypes" class="control-label">Special Event Type</label>
+                                <br>
+                                <div ng-repeat="type in event.specialType">
+                                    <input type="checkbox" ng-model="type.checked">{{type.name}}
+                                </div> 
+                                    <input type="checkbox" ng-model='event.bothSelected' ng-click='event.selectAllTypes()'>Both
                             </div>
                         </div>
                     </div>
